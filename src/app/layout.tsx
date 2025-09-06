@@ -13,8 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Car picker with AI",
-  description: "Website to help you pick a car using AI",
+  title: "Find your car with AI",
+  description:
+    "Website to help you find a car that suits your lifestyle using AI",
 };
 
 export default function RootLayout({

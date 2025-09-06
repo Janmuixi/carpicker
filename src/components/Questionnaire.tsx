@@ -161,10 +161,27 @@ export default function Questionnaire() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-900">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-gray-900 to-slate-800">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-400 mx-auto mb-4"></div>
-          <p className="text-xl text-gray-300">Getting your personalized car recommendations...</p>
+          <div className="relative">
+            {/* Outer rotating ring */}
+            <div className="animate-spin rounded-full h-32 w-32 border-4 border-transparent border-t-blue-500 border-r-cyan-400 mx-auto mb-4"></div>
+            {/* Inner rotating ring */}
+            <div className="absolute top-2 left-2 animate-spin rounded-full h-28 w-28 border-4 border-transparent border-b-amber-400 border-l-blue-300" style={{animationDirection: 'reverse', animationDuration: '1.5s'}}></div>
+            {/* Center circle */}
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-full flex items-center justify-center">
+              <div className="w-8 h-8 bg-slate-900 rounded-full"></div>
+            </div>
+          </div>
+          <h3 className="text-2xl font-bold text-white mb-2">Analyzing Your Preferences</h3>
+          <p className="text-lg text-slate-300 max-w-md mx-auto">
+            Our AI is processing your answers to find the perfect vehicle matches...
+          </p>
+          <div className="flex justify-center space-x-1 mt-6">
+            <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
+            <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" style={{animationDelay: '0.2s'}}></div>
+            <div className="w-2 h-2 bg-amber-400 rounded-full animate-pulse" style={{animationDelay: '0.4s'}}></div>
+          </div>
         </div>
       </div>
     );
@@ -173,49 +190,113 @@ export default function Questionnaire() {
   const question = questions[currentQuestion];
 
   return (
-    <div className="min-h-screen bg-gray-900 py-12 px-4">
-      <div className="max-w-2xl mx-auto">
-        <div className="bg-gray-800 rounded-lg shadow-xl border border-gray-700 p-8">
-          <div className="mb-8">
-            <div className="flex justify-between items-center mb-4">
-              <h1 className="text-2xl font-bold text-white">Car Recommendation Quiz</h1>
-              <span className="text-sm text-gray-400">
-                {currentQuestion + 1} of {questions.length}
-              </span>
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-gray-900 to-slate-800 py-8 px-4 relative">
+      {/* Background Elements */}
+      <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(68,68,68,.05)_25%,rgba(68,68,68,.05)_75%,transparent_75%,transparent),linear-gradient(-45deg,transparent_25%,rgba(68,68,68,.05)_25%,rgba(68,68,68,.05)_75%,transparent_75%,transparent)] bg-[length:40px_40px]"></div>
+      
+      <div className="max-w-4xl mx-auto relative">
+        {/* Header Section */}
+        <div className="text-center mb-12">
+          <div className="inline-flex items-center space-x-3 bg-slate-800/50 backdrop-blur-sm px-6 py-3 rounded-full border border-slate-700/50 mb-6">
+            <div className="flex space-x-1">
+              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+              <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse" style={{animationDelay: '0.2s'}}></div>
+              <div className="w-2 h-2 bg-amber-400 rounded-full animate-pulse" style={{animationDelay: '0.4s'}}></div>
             </div>
-            <div className="w-full bg-gray-700 rounded-full h-2">
-              <div
-                className="bg-blue-500 h-2 rounded-full transition-all duration-300"
-                style={{ width: `${((currentQuestion + 1) / questions.length) * 100}%` }}
-              ></div>
+            <span className="text-slate-300 font-medium">AI Analysis in Progress</span>
+          </div>
+          
+          <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">
+            Vehicle Matching System
+          </h1>
+          <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+            Question {currentQuestion + 1} of {questions.length} • Estimated time: {Math.max(1, questions.length - currentQuestion - 1)} min remaining
+          </p>
+        </div>
+
+        {/* Progress Section */}
+        <div className="mb-12">
+          <div className="flex justify-between items-center mb-4">
+            <span className="text-sm font-medium text-slate-400">Progress</span>
+            <span className="text-sm font-medium text-slate-300">
+              {Math.round(((currentQuestion + 1) / questions.length) * 100)}% Complete
+            </span>
+          </div>
+          <div className="relative w-full bg-slate-800/50 rounded-full h-3 backdrop-blur-sm border border-slate-700/50">
+            <div
+              className="absolute top-0 left-0 h-full bg-gradient-to-r from-blue-500 via-cyan-400 to-amber-400 rounded-full transition-all duration-700 ease-out"
+              style={{ width: `${((currentQuestion + 1) / questions.length) * 100}%` }}
+            ></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent rounded-full"></div>
+          </div>
+        </div>
+
+        {/* Question Card */}
+        <div className="bg-slate-800/30 backdrop-blur-xl rounded-2xl border border-slate-700/50 p-8 md:p-12 shadow-2xl">
+          <div className="mb-10">
+            <div className="flex items-start space-x-4 mb-6">
+              <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-xl flex items-center justify-center">
+                <span className="text-white font-bold text-lg">{currentQuestion + 1}</span>
+              </div>
+              <div className="flex-1">
+                <h2 className="text-2xl md:text-3xl font-bold text-white leading-tight">
+                  {question.question}
+                </h2>
+              </div>
             </div>
           </div>
 
-          <div className="mb-8">
-            <h2 className="text-xl font-semibold text-gray-200 mb-6">
-              {question.question}
-            </h2>
-            <div className="space-y-3">
-              {question.options.map((option) => (
-                <button
-                  key={option}
-                  onClick={() => handleAnswer(option)}
-                  className="w-full text-left p-4 border border-gray-600 rounded-lg hover:border-blue-400 hover:bg-gray-700 transition-colors text-gray-200"
-                >
-                  {option}
-                </button>
-              ))}
-            </div>
+          <div className="grid gap-4 md:gap-5">
+            {question.options.map((option, index) => (
+              <button
+                key={option}
+                onClick={() => handleAnswer(option)}
+                className="group relative w-full text-left p-5 md:p-6 bg-slate-900/30 border border-slate-700/50 rounded-xl hover:border-blue-400/50 hover:bg-slate-800/40 transition-all duration-300 transform hover:scale-[1.02] hover:shadow-lg"
+              >
+                <div className="flex items-center space-x-4">
+                  <div className="flex-shrink-0 w-8 h-8 rounded-full border-2 border-slate-600 group-hover:border-blue-400 transition-colors duration-300 flex items-center justify-center">
+                    <div className="w-3 h-3 rounded-full bg-slate-600 group-hover:bg-blue-400 transition-colors duration-300"></div>
+                  </div>
+                  <span className="text-slate-200 group-hover:text-white transition-colors duration-300 text-lg font-medium">
+                    {option}
+                  </span>
+                </div>
+                <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-500/5 to-cyan-400/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              </button>
+            ))}
           </div>
 
-          {currentQuestion > 0 && (
-            <button
-              onClick={goBack}
-              className="text-blue-400 hover:text-blue-300 font-medium"
-            >
-              ← Go back
-            </button>
-          )}
+          {/* Navigation */}
+          <div className="flex justify-between items-center mt-12">
+            {currentQuestion > 0 ? (
+              <button
+                onClick={goBack}
+                className="flex items-center space-x-2 text-slate-400 hover:text-white transition-colors duration-300 font-medium"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
+                <span>Previous Question</span>
+              </button>
+            ) : (
+              <div></div>
+            )}
+            
+            <div className="text-right">
+              <p className="text-slate-500 text-sm mb-1">Select an option to continue</p>
+              <div className="flex space-x-1">
+                {questions.map((_, index) => (
+                  <div
+                    key={index}
+                    className={`w-2 h-2 rounded-full transition-colors duration-300 ${
+                      index < currentQuestion ? 'bg-green-400' :
+                      index === currentQuestion ? 'bg-blue-400' : 'bg-slate-700'
+                    }`}
+                  ></div>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
