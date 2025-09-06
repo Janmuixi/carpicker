@@ -59,6 +59,26 @@ export async function POST(request: NextRequest) {
         reason:
           "Spacious SUV with great safety features and comfort for families",
       },
+      {
+        make: "Toyota",
+        model: "Camry",
+        year: 2024,
+        reason: "Reliable, fuel-efficient, and perfect for daily commuting",
+      },
+      {
+        make: "Honda",
+        model: "CR-V",
+        year: 2024,
+        reason:
+          "Spacious SUV with great safety features and comfort for families",
+      },
+      {
+        make: "Honda",
+        model: "CR-V",
+        year: 2024,
+        reason:
+          "Spacious SUV with great safety features and comfort for families",
+      },
     ];
     return NextResponse.json({ recommendations });
   } catch (error) {

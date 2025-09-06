@@ -6,33 +6,103 @@ import { useRouter } from 'next/navigation';
 const questions = [
   {
     id: 'budget',
-    question: 'What is your budget range for a car?',
-    options: ['Under $20,000', '$20,000 - $35,000', '$35,000 - $50,000', '$50,000 - $75,000', 'Over $75,000']
+    question: 'What is your total budget for purchasing a car?',
+    options: ['Under $15,000', '$15,000 - $25,000', '$25,000 - $40,000', '$40,000 - $60,000', '$60,000 - $85,000', 'Over $85,000']
   },
   {
-    id: 'usage',
-    question: 'How do you primarily use your car?',
-    options: ['Daily commuting', 'Weekend trips', 'Family transportation', 'Business/work', 'Recreation/hobbies']
+    id: 'financing',
+    question: 'How are you planning to pay for the car?',
+    options: ['Cash payment', 'Finance/loan', 'Lease', 'Trade-in plus financing', 'Not sure yet']
   },
   {
-    id: 'size',
-    question: 'What size vehicle do you prefer?',
-    options: ['Compact/Small', 'Mid-size', 'Large/Full-size', 'SUV/Crossover', 'Truck/Van']
+    id: 'usage_primary',
+    question: 'What will be your primary use for this car?',
+    options: ['Daily work commute', 'Family transportation', 'Weekend recreation', 'Business travel', 'Delivery/work vehicle']
   },
   {
-    id: 'fuel',
-    question: 'What type of fuel/power do you prefer?',
-    options: ['Gasoline', 'Hybrid', 'Electric', 'Diesel', 'No preference']
+    id: 'daily_miles',
+    question: 'How many miles do you drive on a typical day?',
+    options: ['Less than 20 miles', '20-50 miles', '50-100 miles', '100-150 miles', 'More than 150 miles']
   },
   {
-    id: 'priority',
-    question: 'What is most important to you in a car?',
-    options: ['Fuel efficiency', 'Reliability', 'Performance/Speed', 'Luxury/Comfort', 'Safety features']
+    id: 'commute_type',
+    question: 'What type of driving do you do most?',
+    options: ['City/urban driving', 'Highway/freeway', 'Mixed city and highway', 'Rural/country roads', 'Off-road/unpaved']
   },
   {
     id: 'passengers',
-    question: 'How many passengers do you typically carry?',
-    options: ['Just myself', '2-3 people', '4-5 people', '6-7 people', '8+ people']
+    question: 'How many people do you need to seat regularly?',
+    options: ['Just myself (1)', '2 people', '3-4 people', '5-6 people', '7+ people']
+  },
+  {
+    id: 'cargo_needs',
+    question: 'How much cargo/storage space do you need?',
+    options: ['Minimal (small trunk)', 'Moderate (standard trunk)', 'Large (SUV-sized)', 'Maximum (truck bed/large van)', 'Flexible/removable seats']
+  },
+  {
+    id: 'vehicle_type',
+    question: 'What type of vehicle appeals to you most?',
+    options: ['Sedan', 'Hatchback/wagon', 'SUV/Crossover', 'Pickup truck', 'Sports car', 'Minivan']
+  },
+  {
+    id: 'size_preference',
+    question: 'What size vehicle do you prefer?',
+    options: ['Compact (easy parking)', 'Mid-size (balanced)', 'Full-size (spacious)', 'No preference', 'Depends on other factors']
+  },
+  {
+    id: 'fuel_type',
+    question: 'What type of power/fuel do you prefer?',
+    options: ['Gasoline', 'Hybrid (gas + electric)', 'Fully electric', 'Plug-in hybrid', 'Diesel', 'No preference']
+  },
+  {
+    id: 'fuel_economy',
+    question: 'How important is fuel economy to you?',
+    options: ['Extremely important (35+ MPG)', 'Very important (25-35 MPG)', 'Moderately important (20-25 MPG)', 'Less important (15-20 MPG)', 'Not a concern']
+  },
+  {
+    id: 'brand_preference',
+    question: 'Do you have any brand preferences?',
+    options: ['American brands (Ford, GM, Chrysler)', 'Japanese brands (Toyota, Honda, Nissan)', 'German luxury (BMW, Mercedes, Audi)', 'Korean brands (Hyundai, Kia)', 'No preference', 'Avoid certain brands']
+  },
+  {
+    id: 'reliability_importance',
+    question: 'How important is long-term reliability to you?',
+    options: ['Extremely important (keep 10+ years)', 'Very important (keep 5-10 years)', 'Moderately important (keep 3-5 years)', 'Less important (keep 2-3 years)', 'Not important (frequent upgrades)']
+  },
+  {
+    id: 'features_priority',
+    question: 'Which feature category matters most to you?',
+    options: ['Safety features (collision avoidance, airbags)', 'Technology (infotainment, smartphone integration)', 'Comfort (heated seats, climate control)', 'Performance (acceleration, handling)', 'Convenience (keyless entry, remote start)']
+  },
+  {
+    id: 'driving_style',
+    question: 'How would you describe your driving style?',
+    options: ['Calm and conservative', 'Practical and efficient', 'Enthusiastic but safe', 'Performance-oriented', 'Varies by situation']
+  },
+  {
+    id: 'weather_conditions',
+    question: 'What weather conditions do you regularly drive in?',
+    options: ['Mild weather year-round', 'Regular rain/wet conditions', 'Snow and ice in winter', 'Extreme heat', 'All weather conditions']
+  },
+  {
+    id: 'parking_situation',
+    question: 'Where do you typically park?',
+    options: ['Garage at home', 'Driveway', 'Street parking', 'Parking lots/garages', 'Mix of locations']
+  },
+  {
+    id: 'maintenance_preference',
+    question: 'How do you prefer to handle maintenance?',
+    options: ['Dealership service only', 'Independent mechanic', 'Do some work myself', 'Minimal maintenance preferred', 'Whatever is most convenient']
+  },
+  {
+    id: 'resale_concern',
+    question: 'How important is resale value to you?',
+    options: ['Very important (planning to sell)', 'Moderately important', 'Somewhat important', 'Not very important', 'Plan to drive until it dies']
+  },
+  {
+    id: 'timeline',
+    question: 'When do you need to purchase this car?',
+    options: ['Immediately (within 2 weeks)', 'Soon (within 1-2 months)', 'This year', 'Flexible timeline', 'Just researching for now']
   }
 ];
 
