@@ -13,12 +13,13 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Car Picker AI - Find Your Perfect Car with AI | Smart Car Recommendations",
+  title:
+    "Car Picker AI - Find Your Perfect Car with AI | Smart Car Recommendations",
   description:
     "Discover your ideal car with our AI-powered recommendation system. Answer 20 smart questions and get personalized vehicle matches based on your lifestyle, budget, and preferences. Free car finder tool.",
   keywords: [
     "car finder",
-    "AI car recommendations", 
+    "AI car recommendations",
     "car buying guide",
     "vehicle matcher",
     "car selection tool",
@@ -26,7 +27,7 @@ export const metadata: Metadata = {
     "car picker",
     "find perfect car",
     "car recommendation engine",
-    "smart car finder"
+    "smart car finder",
   ].join(", "),
   authors: [{ name: "Car Picker AI" }],
   creator: "Car Picker AI",
@@ -89,31 +90,37 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "WebApplication",
-              "name": "Car Picker AI",
-              "description": "AI-powered car recommendation system that helps users find their perfect vehicle based on lifestyle and preferences",
-              "url": "https://carpicker-ai.vercel.app",
-              "applicationCategory": "AutomotiveBusinessApplication",
-              "operatingSystem": "Web Browser",
-              "offers": {
+              name: "Car Picker AI",
+              description:
+                "AI-powered car recommendation system that helps users find their perfect vehicle based on lifestyle and preferences",
+              url: "https://carpicker-ai.vercel.app",
+              applicationCategory: "AutomotiveBusinessApplication",
+              operatingSystem: "Web Browser",
+              offers: {
                 "@type": "Offer",
-                "price": "0",
-                "priceCurrency": "USD"
+                price: "0",
+                priceCurrency: "USD",
               },
-              "provider": {
+              provider: {
                 "@type": "Organization",
-                "name": "Car Picker AI",
-                "description": "Advanced AI-powered car recommendation platform"
+                name: "Car Picker AI",
+                description: "Advanced AI-powered car recommendation platform",
               },
-              "featureList": [
+              featureList: [
                 "20 Smart Questions Assessment",
-                "AI-Powered Vehicle Analysis", 
+                "AI-Powered Vehicle Analysis",
                 "Personalized Car Recommendations",
                 "Match Score Visualization",
-                "Lifestyle-Based Matching"
-              ]
+                "Lifestyle-Based Matching",
+              ],
             }),
           }}
         />
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7658109687581666"
+          crossOrigin="anonymous"
+        ></script>
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
