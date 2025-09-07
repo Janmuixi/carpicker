@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import Head from "next/head";
 
 interface CarRecommendation {
   make: string;
@@ -35,27 +36,60 @@ export default function ResultsPage() {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-gray-900 to-slate-800">
-        <div className="text-center">
+        <main className="text-center">
           <div className="relative">
-            <div className="animate-spin rounded-full h-32 w-32 border-4 border-transparent border-t-blue-500 border-r-cyan-400 mx-auto mb-4"></div>
+            <div 
+              className="animate-spin rounded-full h-32 w-32 border-4 border-transparent border-t-blue-500 border-r-cyan-400 mx-auto mb-4" 
+              aria-label="Loading animation"
+              style={{ willChange: 'transform' }}
+            ></div>
             <div
               className="absolute top-2 left-2 animate-spin rounded-full h-28 w-28 border-4 border-transparent border-b-amber-400 border-l-blue-300"
               style={{
                 animationDirection: "reverse",
                 animationDuration: "1.5s",
+                willChange: 'transform'
               }}
             ></div>
           </div>
           <p className="text-xl text-slate-300">
-            Loading your recommendations...
+            Loading your car recommendations...
           </p>
-        </div>
+        </main>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-gray-900 to-slate-800 relative">
+    <>
+      <Head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "ItemList",
+              "name": "Car Recommendations",
+              "description": "Personalized car recommendations based on AI analysis",
+              "numberOfItems": recommendations.length,
+              "itemListElement": recommendations.map((car, index) => ({
+                "@type": "Product",
+                "position": index + 1,
+                "name": `${car.year} ${car.make} ${car.model}`,
+                "description": car.reason,
+                "brand": {
+                  "@type": "Brand",
+                  "name": car.make
+                },
+                "model": car.model,
+                "vehicleModelDate": car.year.toString(),
+                "category": "Vehicle"
+              }))
+            }),
+          }}
+        />
+      </Head>
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-gray-900 to-slate-800 relative">
       {/* Background Elements */}
       <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(68,68,68,.05)_25%,rgba(68,68,68,.05)_75%,transparent_75%,transparent),linear-gradient(-45deg,transparent_25%,rgba(68,68,68,.05)_25%,rgba(68,68,68,.05)_75%,transparent_75%,transparent)] bg-[length:40px_40px]"></div>
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-slate-900/50"></div>
@@ -63,7 +97,7 @@ export default function ResultsPage() {
       <div className="relative py-16 px-4">
         <div className="max-w-6xl mx-auto">
           {/* Header Section */}
-          <div className="text-center mb-16">
+          <header className="text-center mb-16">
             {/* Success Badge */}
             <div className="inline-flex items-center space-x-3 bg-green-500/10 backdrop-blur-sm px-6 py-3 rounded-full border border-green-500/30 mb-8">
               <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
@@ -75,26 +109,24 @@ export default function ResultsPage() {
             {/* Main Title */}
             <h1 className="text-5xl md:text-6xl font-bold mb-6">
               <span className="bg-gradient-to-r from-white via-blue-100 to-cyan-200 bg-clip-text text-transparent">
-                Your Perfect
-              </span>
-              <br />
-              <span className="bg-gradient-to-r from-blue-400 via-cyan-300 to-amber-400 bg-clip-text text-transparent">
-                Vehicle Matches
+                Your Perfect Vehicle Matches
               </span>
             </h1>
 
-            <p className="text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
+            <h2 className="text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto leading-relaxed">
               Our AI has analyzed your preferences and lifestyle to recommend
               these carefully selected vehicles
-            </p>
-          </div>
+            </h2>
+          </header>
 
           {/* Recommendations Grid */}
-          <div className="grid gap-8 lg:gap-10">
+          <main className="grid gap-8 lg:gap-10">
             {recommendations.map((car, index) => (
-              <div
+              <article
                 key={index}
                 className="group relative bg-slate-800/30 backdrop-blur-xl rounded-3xl border border-slate-700/50 p-8 md:p-10 shadow-2xl hover:shadow-blue-500/10 transition-all duration-500 hover:border-blue-400/50"
+                itemScope
+                itemType="https://schema.org/Product"
               >
                 {/* Rank Badge */}
                 <div className="absolute -top-4 left-8">
@@ -109,9 +141,12 @@ export default function ResultsPage() {
                     {/* Vehicle Info */}
                     <div className="flex-1">
                       <div className="mb-6">
-                        <h2 className="text-3xl md:text-4xl font-bold text-white mb-2 group-hover:text-blue-100 transition-colors duration-300">
+                        <h3 className="text-3xl md:text-4xl font-bold text-white mb-2 group-hover:text-blue-100 transition-colors duration-300" itemProp="name">
                           {car.year} {car.make} {car.model}
-                        </h2>
+                        </h3>
+                        <meta itemProp="brand" content={car.make} />
+                        <meta itemProp="model" content={car.model} />
+                        <meta itemProp="vehicleModelDate" content={car.year.toString()} />
                         <div className="flex items-center space-x-3">
                           <div className="h-1 w-16 bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full"></div>
                           <span className="text-slate-400 font-medium">
@@ -138,7 +173,7 @@ export default function ResultsPage() {
                           </svg>
                           Why This Car Matches You
                         </h3>
-                        <p className="text-slate-300 leading-relaxed text-lg">
+                        <p className="text-slate-300 leading-relaxed text-lg" itemProp="description">
                           {car.reason}
                         </p>
                       </div>
@@ -187,15 +222,15 @@ export default function ResultsPage() {
 
                 {/* Hover Effect Overlay */}
                 <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-blue-500/5 to-cyan-400/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              </div>
+              </article>
             ))}
-          </div>
+          </main>
 
           {/* Action Section */}
-          <div className="text-center mt-16">
+          <section className="text-center mt-16">
             <div className="bg-slate-800/30 backdrop-blur-xl rounded-2xl border border-slate-700/50 p-8 md:p-10 shadow-2xl max-w-2xl mx-auto">
               <h3 className="text-2xl font-bold text-white mb-4">
-                Need Different Recommendations?
+                Need Different Car Recommendations?
               </h3>
               <p className="text-slate-300 mb-8 leading-relaxed">
                 If none of these options feel right, take the quiz again with
@@ -211,9 +246,10 @@ export default function ResultsPage() {
                 </button>
               </div>
             </div>
-          </div>
+          </section>
         </div>
       </div>
     </div>
+    </>
   );
 }
